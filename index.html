@@ -1,0 +1,214 @@
+<!--
+
+Copyright 2017 SpopovabgS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>SU Fake Episode Generator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>* SU Title Card Generator *</h1>
+                <p>~STILL IN DEVELOPMENT!~</p>
+                <p id="legal">I do not own 'Steven Universe', all credit goes to its rightful owners.</p>
+            </header>
+            <ul class="nav">
+                <li><a href="#" onclick="smoothScroll(document.getElementById('tutorial'))">how does this work?</a></li>
+            </ul>
+            <div class="customize">
+                <p style="font-size: 15px; width: 80%; margin: auto; padding: 20px;">The Steven Universe titlecards do not always follow the exact same pattern for most details, because of this, i have added plenty of options to let you customize your elements however you like. Be sure to explore all options and experiment with your output!<br>Once you are done, you can save using Right Click->"Save as".<br>(This website has only been tested in Mozilla Firefox and Google Chrome, please use either of these browsers for more compatibility.)</p>
+
+                <h2>Enter your episode title:</h2>
+                    <textarea id="input-text" rows="5" cols="25" onchange="updateCanvas('input')"></textarea><br>
+                <h2>Options:</h2>
+                <div id="options">
+                    <p>Text Options</p>
+                    Text X: <input type="number" id="input-x" width="70" onchange="updateCanvas('input')" value="540" /><br>
+                    Text Y: <input type="number" id="input-y" width="70" onchange="updateCanvas('input')" value="300" /><br>
+                    Mask X: <input type="number" id="mask-x" width="70" onchange="updateCanvas('input')" value="100" /><br>
+                    Mask Y: <input type="number" id="mask-y" width="70" onchange="updateCanvas('input')" value="100" /><br>
+
+                    <div id="fontsize1">Font Size 1: <input type="number" id="font-size-1" width="70" onchange="updateCanvas('input')" value="70" />px</div>
+                    <div id="fontsize2">Font Size 2: <input type="number" id="font-size-2" width="70" onchange="updateCanvas('input')" value="70" />px</div>
+                    <div id="fontsize3">Font Size 3: <input type="number" id="font-size-3" width="70" onchange="updateCanvas('input')" value="70" />px</div>
+
+                    Line Spacing: <input type="number" id="line-spacing" width="70" onchange="updateCanvas('input')" value="30" />px<br>
+
+                    Stroke Width: <input type="number" id="stroke-width" width="70" onchange="updateCanvas('input')" value="15" />px<br>
+                    Shadow Offset (X): <input type="number" id="shadow-offset" width="70" onchange="updateCanvas('input')" value="7" />px<br>
+                </div>
+                <br>
+                <div id="options">
+                    <p>Other Options</p>
+                    <input type="checkbox" id="random-text-mask" onclick="toggleElement('overlay');"> Use Random Text Mask<br>
+                    <input type="checkbox" id="random-background" onclick="toggleElement('background');"> Use Random Background<br>
+                    <input type="checkbox" id="random-hue" onclick="toggleElement('hue-container');"> Use Random Hue Value<br>
+                    <div id="hue-container">
+                        Custom hue value: <input type="number" id="hue-degrees" width="70" />
+                        <p style="font-size: 12px; color: red; position: relative; display: inline; margin: 5px;">
+                            (From -360 to +360.)
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div id="options">
+                    <p>Credits Box Options</p>
+                    <input type="checkbox" id="use-credits-box"> Use Credits Box<br>
+                    <div id="credits-box-container">
+                        <input type="checkbox" id="use-double-credits-box"> Use Double Credits Box<br>
+                        Credits X: <input id="credits-x" type="number" width="70" onchange="updateCanvas('input')" value="600" /><br>
+                        Credits Y: <input id="credits-y" type="number" width="70" onchange="updateCanvas('input')" value="400" /><br>
+                        Credits Width: <input id="credits-width" type="number" width="70" onchange="updateCanvas('input')" value="400" /><br>
+                        <p style="position: relative; text-align: center;">Credits Text:</p>
+                        <textarea id="credits-box-text" rows="3" cols="20" onchange="updateCanvas('input')"></textarea><br>
+                        <input type="checkbox" id="swap-credits-text-colors"> Swap Credits Text Colors<br>
+                    </div>
+                </div>
+                <br>
+                <div id="choose">
+                    <!--http://stackoverflow.com/questions/9508029/dropdown-select-with-images-->
+                    <div class="image-dropdown" id="background">
+                        Pick a background:
+                        <br>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/1.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/2.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/3.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/4.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/5.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/6.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/7.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/8.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/9.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/10.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/11.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/12.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/13.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/14.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/15.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/16.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/17.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/18.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/19.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserBackground(this);">
+                            <img class="flagimgs" src="assets/titlecards/20.png" />
+                        </div>
+                    </div>
+                    <div class="image-dropdown" id="overlay">
+                        Pick a text mask:
+                        <br>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/1.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/2.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/3.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/4.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/5.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/6.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/7.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/8.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/9.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/10.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/11.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/12.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/13.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserMask(this);">
+                            <img class="flagimgs" src="assets/overlays/14.png" />
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="button" id="submit-button">Generate</button><br>
+            </div>
+                <div id="canvas-container">
+                    <canvas id="ep-canvas" height="720" width="1280"></canvas>
+                    <canvas id="text-canvas" height="720" width="1280" style="position: absolute; display: none;"></canvas>
+                    <canvas id="credits-canvas" height="720" width="1280" style="position: absolute; display: none;"></canvas>
+                </div>
+            <div id="tutorial"></div>
+            <div id="credits">
+                <h2>Credits</h2>
+                <a href="http://maxigamer.deviantart.com/art/Crewniverse-Font-V-5-MORE-ACCENTS-AND-SYMBOLS-540122768">Download the "Crewniverse V.5" font, created by MaxiGamer, at their DevianArt.</a><br>
+                <a href="http://imgur.com/gallery/IatyF">1080p Titlecard backgrounds, uploaded by MaxiGamer.</a><br>
+                <a href="https://mega.nz/#F!LMED2ATa!c5LVY4kQxzrUh1iPt2lyEw">Titlecard assets.</a><br>
+                <br>
+                <br>
+                <p style="color: #fff;">Copyright 2017 SpopovabgS</p>
+            </div>
+        </div>
+        <script src="ep-generator.js"></script>
+    </body>
+</html>

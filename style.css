@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+@font-face {
+    /*font-family: crewniverse_font;
+    src: local(crewniverse_font),
+         url('crewniverse/crewniverse_font.ttf') format('opentype');*/
+    font-family: crewniverse_font;
+    src: url('crewniverse/crewniverse_font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('bg_1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    background-color: #fff;
+}
+
+#canvas-container {
+    width: 100%;
+    text-align: center;
+}
+
+.container header {
+    background-color: #f4425f;
+    padding: 35px 25px 25px 25px;
+    color: #ffdb2b;
+    font-size: 25px;
+    text-align: center;
+    font-family: crewniverse_font, sans-serif;
+}
+
+.container header p:not(#legal) {
+    color: white;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 3px;
+    padding-top: 20px;
+}
+
+.container header p#legal {
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+    padding: 10px;
+    color: #ffaab5;
+}
+
+canvas#ep-canvas {
+    display: inline;
+    background-size: 100%;
+}
+
+canvas#credits-canvas {
+    position: absolute;
+}
+
+input[type=number]{
+    width: 50px;
+}
+
+.customize {
+    padding: 10px;
+    text-align: center;
+}
+
+.customize p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
+
+h2 {
+    line-height: 30px;
+    font-size: 18px;
+    font-family: crewniverse_font, sans-serif;
+    font-weight: normal;
+    color: #f72a45;
+    text-shadow: 1px 1px rgb(142, 14, 31);
+}
+
+.customize button {
+    background-color: #f72a45;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 15px;
+    border-bottom: 4px solid #bc182e;
+    transition: 0.3s;
+}
+
+.customize button:hover,
+.customize button.hover {
+    cursor: pointer;
+    background: #c42136;
+    color: #ffdbdf;
+    transition: 0.3s;
+    outline: none;
+}
+
+.customize textarea {
+    background: #ededed;
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 16px;
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none;
+    transition: 0.2s;
+}
+
+.customize textarea:focus,
+.customize textarea.focus {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
+    transition: 0.2s;
+}
+
+.customize input[type=number] {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding-left: 5px;
+    border: 1px solid #d1d1d1;
+    line-height: 25px;
+    outline: none;
+    resize: none;
+    transition: 0.2s;
+}
+
+.customize #options,
+.customize #choose {
+    margin-bottom: 15px;
+    line-height: 35px;
+    background-color: #f2f2f2;
+    border-radius: 7px;
+    display: inline-block;
+    padding: 15px;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.customize #options #fontsize2,
+.customize #options #fontsize3 {
+    display: none;
+}
+
+.image-dropdown {
+    display: inline-block;
+    height: auto;
+    width: 720px;
+    overflow: hidden;
+}
+
+.image-dropdown .img_holder {
+    display: inline;
+    cursor: pointer;
+}
+
+.image-dropdown .img_holder:hover {
+    opacity: .5;
+}
+
+.image-dropdown img.flagimgs {
+    height: 80px;
+}
+
+.customize #choose {
+    width: 700px;
+}
+
+/* other */
+
+#credits {
+    padding: 25px;
+    height: auto;
+    background-color: #f72a45;
+    text-align: center;
+}
+
+#credits h2 {
+    color: #fff;
+    font-size: 28px;
+    padding-bottom: 15px;
+}
+
+#credits a,
+#credits a:visited {
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    transition: .2s;
+    text-decoration: none;
+}
+
+#credits a:hover {
+    color: #ffd3d9;
+    transition: .2s;
+}
+
+/* navigation */
+
+.nav {
+    list-style: none;
+    text-align: center;
+    background-color: #f4425f;
+    margin-top: -30px;
+}
+
+.nav li {
+    display: inline;
+}
+
+.nav a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    transition: .3s;
+}
+
+.nav li:hover > a {
+    background-color: #d62c48;
+    color: #ffdbdf;
+    border-radius: 4px;
+    transition: .3s;
+}
+
+#tutorial {
+    height: 1700px;
+    background-image: url('tutorial_1.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
