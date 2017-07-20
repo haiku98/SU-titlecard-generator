@@ -199,8 +199,7 @@ function selectUserImage(image, type) {
 // https://gist.github.com/chriskoch/366054
 function drawCanvasText(x, y, doStroke) {
 	var lines = inputText.value.split("\n");
-	var padding;
-	(lineSpacing.value == null || lineSpacing.value == "") ? padding = 45 : padding = parseInt(lineSpacing.value);
+	var padding = parseInt(lineSpacing.value);
 	//ctx.save();
 	//ctx.translate(posX, posY);
 	txtctx.fillStyle = "black";
@@ -209,16 +208,16 @@ function drawCanvasText(x, y, doStroke) {
 		switch(i) {
 			case 0:
 				txtctx.font = fontSize1.value + "pt crewniverse_font";
+				var lineHeight1 = parseInt(txtctx.font);
 				break;
 			case 1:
-				var lineHeight = parseInt(fontSize2.value);
 				txtctx.font = fontSize2.value + "pt crewniverse_font";
-				y = (parseInt(y) + lineHeight) + padding;
+				var lineHeight2 = parseInt(txtctx.font);
+				y = parseInt(y) + lineHeight1 + padding;
 				break;
 			case 2:
-				var lineHeight = parseInt(fontSize3.value);
 				txtctx.font = fontSize3.value + "pt crewniverse_font";
-				y = (parseInt(y) + lineHeight) + padding;
+				y = parseInt(y) + lineHeight2 + padding;
 				break;
 		}
 		if(doStroke) txtctx.strokeText(lines[i], x, y);
