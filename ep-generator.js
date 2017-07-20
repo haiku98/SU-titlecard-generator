@@ -60,7 +60,7 @@ function formatCreditsText(x, y, color1, color2) {
 	var font1 = "15pt crewniverse_font";
 	var font2 = "7pt crewniverse_font";
 	var text = creditsText.value;
-	var lines = creditsText.value.split("\n");
+	var lines = text.split("\n");
 	if(swapCreditsTextColors.checked) {
 		let temp = color1;
 		color1 = color2;
@@ -80,7 +80,7 @@ function formatCreditsText(x, y, color1, color2) {
 			var x2 = x + 20;
 			for(var ii = 0; ii <= line.length; ++ii) {
 				var ch = line.charAt(ii);
-				if(and == false) {
+				if(!and) {
 					credctx.fillStyle = color1;
 					credctx.font = font1;
 				} else {
