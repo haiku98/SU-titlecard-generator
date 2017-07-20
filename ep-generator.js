@@ -1,11 +1,11 @@
-var canvas = document.getElementById("ep-canvas");
-var ctx = canvas.getContext("2d");
+var bgcanvas = document.getElementById("ep-canvas");
+var bgctx = bgcanvas.getContext("2d");
 
-var ccanvas = document.getElementById("text-canvas");
-var cctx = ccanvas.getContext("2d");
+var txtcanvas = document.getElementById("text-canvas");
+var txtctx = txtcanvas.getContext("2d");
 
-var cccanvas = document.getElementById("credits-canvas");
-var ccctx = cccanvas.getContext("2d");
+var credcanvas = document.getElementById("credits-canvas");
+var credctx = credcanvas.getContext("2d");
 
 var inputText = document.getElementById("input-text"); // main textarea
 var inputX = document.getElementById("input-x");
@@ -36,54 +36,16 @@ var userMask = document.createElement("img");
 
 var maskArray, bgArray, temp_mask, temp_background, mask;
 
-/* CREDITS */
-
 function drawCreditsText() {
-	if(!useCreditsBox.checked)
-	return;
-	var color1, color2;
-	if(temp_mask.includes("overlays/1.png")) {
-		color1 = "#f485a1";
-		color2 = "#6483a4";
-	} else if(temp_mask.includes("overlays/2.png")) {
-		color1 = "#0a6e9b";
-		color2 = "#8f8bc6";
-	} else if(temp_mask.includes("overlays/3.png")) {
-		color1 = "#f49677";
-		color2 = "#ed6d8b";
-	} else if(temp_mask.includes("overlays/4.png")) {
-		color1 = "#d0424b";
-		color2 = "#f4955d";
-	} else if(temp_mask.includes("overlays/5.png")) {
-		color1 = "#d673c8";
-		color2 = "#e686b9";
-	} else if(temp_mask.includes("overlays/6.png")) {
-		color1 = "#879d50";
-		color2 = "#598392";
-	} else if(temp_mask.includes("overlays/7.png")) {
-		color1 = "#7193b5";
-		color2 = "#f591c1";
-	} else if(temp_mask.includes("overlays/8.png")) {
-		color1 = "#918ac6";
-		color2 = "#0a6e99";
-	} else if(temp_mask.includes("overlays/9.png")) {
-		color1 = "#f2549b";
-		color2 = "#d22eac";
-	} else if(temp_mask.includes("overlays/10.png")) {
-		color1 = "#20536f";
-		color2 = "#98a1ba";
-	} else if(temp_mask.includes("overlays/11.png")) {
-		color1 = "#6ba3d3";
-		color2 = "#ba9fd6";
-	} else if(temp_mask.includes("overlays/12.png")) {
-		color1 = "#e8b0ca";
-		color2 = "#d6a2da";
-	} else if(temp_mask.includes("overlays/13.png")) {
-		color1 = "#f49174";
-		color2 = "#ed6d8a";
-	} else if(temp_mask.includes("overlays/14.png")) {
-		color1 = "#f26d77";
-		color2 = "#7f6977";
+	if(!useCreditsBox.checked) return;
+	var colors1 = ["#f485a1", "#0a6e9b", "#f49677", "#d0424b", "#d673c8", "#879d50", "#7193b5", "#918ac6", "#f2549b", "#20536f", "#6ba3d3", "#e8b0ca", "#f49174", "#f26d77"];
+	var colors2 = ["#6483a4", "#8f8bc6", "#ed6d8b", "#f4955d", "#e686b9", "#598392", "#f591c1", "#0a6e99", "#d22eac", "#98a1ba", "#ba9fd6", "#d6a2da", "#ed6d8a", "#7f6977"];
+	var overlaysCount = 14; // TODO: make this automatic
+	for (var i = 0; i < overlaysCount; i++) {
+		if(temp_mask.includes("overlays/" + (i + 1) + ".png")) {
+			color1 = colors1[i];
+			color2 = colors2[i];
+		}
 	}
 	var x = parseInt(creditsX.value) + 25;
 	var y = parseInt(creditsY.value) + 25;
@@ -96,60 +58,60 @@ function formatCreditsText(x, y, color1, color2) {
 	var text = creditsText.value;
 	var lines = creditsText.value.split("\n");
 	for (var i = 0; i < lines.length; i++) {
-	if(i == 0) {
-		ccctx.font = font2;
-		(swapCreditsTextColors.checked) ? ccctx.fillStyle = color1 : ccctx.fillStyle = color2;
-		ccctx.fillText(lines[0], x, y);
-		y += parseInt(ccctx.font) + 20;
-	} else {
-		ccctx.font = font1;
-		var temp_count = 0;
-		var and = false;
-		var line = lines[i];
-		var x2 = x + 20;
-		for(var ii = 0; ii <= line.length; ++ii) {
-			var ch = line.charAt(ii);
-			if(and == false) {
-				(swapCreditsTextColors.checked) ? ccctx.fillStyle = color2 : ccctx.fillStyle = color1;
-				ccctx.font = font1;
-			} else {
-				(swapCreditsTextColors.checked) ? ccctx.fillStyle = color1 : ccctx.fillStyle = color2;
-				ccctx.font = font2;
-			}
-			if(line[ii+1] == "a" && line[ii+2] == "n" && line[ii+3] == "d" && line[ii+4] == " ")
-			// TODO: make it check for uppercase as well
-			and = true;
-			if(and == true)
-				temp_count++;
-			if(temp_count == 4) {
-				and = false;
-				temp_count = 0;
-			}
-			//console.log(ch);
-			//if(line[ii-1] == " ") x2 = x2 - 10;
-			ccctx.fillText(ch, x2, y);
-			x2 += ccctx.measureText(ch).width;
-			if(ii == line.length) {
-				var lineheight = parseInt(ccctx.font);
-				y = (parseInt(y) + parseInt(lineheight)) + 5;
-				x = parseInt(x) + 80;
-				//console.log(x);
-				//cctx.fillText(ch, x, y);
+		if(i == 0) {
+			credctx.font = font2;
+			(swapCreditsTextColors.checked) ? credctx.fillStyle = color1 : credctx.fillStyle = color2;
+			credctx.fillText(lines[0], x, y);
+			y += parseInt(credctx.font) + 20;
+		} else {
+			credctx.font = font1;
+			var temp_count = 0;
+			var and = false;
+			var line = lines[i];
+			var x2 = x + 20;
+			for(var ii = 0; ii <= line.length; ++ii) {
+				var ch = line.charAt(ii);
+				if(and == false) {
+					(swapCreditsTextColors.checked) ? credctx.fillStyle = color2 : credctx.fillStyle = color1;
+					credctx.font = font1;
+				} else {
+					(swapCreditsTextColors.checked) ? credctx.fillStyle = color1 : credctx.fillStyle = color2;
+					credctx.font = font2;
+				}
+				if(line[ii+1] == "a" && line[ii+2] == "n" && line[ii+3] == "d" && line[ii+4] == " ")
+				// TODO: make it check for uppercase as well
+				and = true;
+				if(and == true)
+					temp_count++;
+				if(temp_count == 4) {
+					and = false;
+					temp_count = 0;
+				}
+				//console.log(ch);
+				//if(line[ii-1] == " ") x2 = x2 - 10;
+				credctx.fillText(ch, x2, y);
+				x2 += credctx.measureText(ch).width;
+				if(ii == line.length) {
+					var lineheight = parseInt(credctx.font);
+					y = (parseInt(y) + parseInt(lineheight)) + 5;
+					x = parseInt(x) + 80;
+					//console.log(x);
+					//cctx.fillText(ch, x, y);
 				}
 			}
 		}
 	}
-	ccctx.restore();
+	credctx.restore();
 }
 
 function drawCreditsBox() {
-	ccctx.clearRect(0, 0, ccanvas.width, ccanvas.height);
-	ccctx.save();
-	ccctx.fillStyle = "#ffffff";
-	roundRect(ccctx, parseInt(creditsX.value), parseInt(creditsY.value), parseInt(creditsWidth.value), 80, 50, true, false);
+	credctx.clearRect(0, 0, txtcanvas.width, txtcanvas.height);
+	credctx.save();
+	credctx.fillStyle = "#ffffff";
+	roundRect(credctx, parseInt(creditsX.value), parseInt(creditsY.value), parseInt(creditsWidth.value), 80, 50, true, false);
 	if(useDoublesBox.checked) {
-		ccctx.fillStyle = "#ffffff";
-		roundRect(ccctx, parseInt(creditsX.value) + 50, parseInt(creditsY.value) + 65, parseInt(creditsWidth.value), 80, 50, true, false);
+		credctx.fillStyle = "#ffffff";
+		roundRect(credctx, parseInt(creditsX.value) + 50, parseInt(creditsY.value) + 65, parseInt(creditsWidth.value), 80, 50, true, false);
 	}
 	drawCreditsText();
 }
@@ -157,10 +119,10 @@ function drawCreditsBox() {
 // http://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-on-html-canvas
 function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
 	if (typeof stroke == 'undefined') {
-	stroke = true;
+		stroke = true;
 	}
 	if (typeof radius === 'undefined') {
-	radius = 5;
+		radius = 5;
 	}
 	if (typeof radius === 'number') {
 		radius = {tl: radius, tr: radius, br: radius, bl: radius};
@@ -195,8 +157,6 @@ function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
 	cotx.restore();
 }
 
-/* MAIN TEXT AND BACKGROUND */
-
 var temp_first_b = true;
 var currentImg_b;
 
@@ -219,8 +179,8 @@ var currentImg_m;
 function selectUserMask(image) {
 	userImage = image.childNodes[1];
 	if(temp_first_m == true) {
-	userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-	temp_first_m = false;
+		userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
+		temp_first_m = false;
 	} else {
 		currentImg_m.style.boxShadow = "none";
 	}
@@ -236,77 +196,62 @@ function drawCanvasText(x, y, doStroke) {
 	(lineSpacing.value == null || lineSpacing.value == "") ? padding = 45 : padding = parseInt(lineSpacing.value);
 	//ctx.save();
 	//ctx.translate(posX, posY);
-	cctx.fillStyle = "black";
+	txtctx.fillStyle = "black";
 	for (i = 0; i < lines.length; i++) {
 		switch(i) {
 			case 0:
-				cctx.font = fontSize1.value + "pt crewniverse_font";
+				txtctx.font = fontSize1.value + "pt crewniverse_font";
 				break;
 			case 1:
 				var lineHeight = parseInt(fontSize2.value);
-				cctx.font = fontSize2.value + "pt crewniverse_font";
+				txtctx.font = fontSize2.value + "pt crewniverse_font";
 				y = (parseInt(y) + lineHeight) + padding;
 				//console.log("padding: " + padding + "\nlineheight: " + lineheight + "\nfontsize2: " + fontSize2.value);
 				break;
 			case 2:
 				var lineHeight = parseInt(fontSize3.value);
-				cctx.font = fontSize3.value + "pt crewniverse_font";
+				txtctx.font = fontSize3.value + "pt crewniverse_font";
 				y = (parseInt(y) + lineHeight) + padding + 10;
 				break;
 		}
-		if(doStroke) cctx.strokeText(lines[i], x, y);
-		else cctx.fillText(lines[i], x, y);
+		if(doStroke) txtctx.strokeText(lines[i], x, y);
+		else txtctx.fillText(lines[i], x, y);
 	}
 }
 
 function updateCanvasText() {
-	cctx.clearRect(0, 0, ccanvas.width, ccanvas.height);
-	cctx.save();
-
 	var x = inputX.value;
 	var y = inputY.value;
 	var mask_X = maskX.value;
 	var mask_Y = maskY.value;
-	//ctx.beginPath();
-
-	//console.log("- image src: " + mask.src);
-
+	txtctx.clearRect(0, 0, txtcanvas.width, txtcanvas.height);
+	txtctx.save();
 	drawCanvasText(x, y, false);
-
-	cctx.globalCompositeOperation = "source-in";
-	cctx.drawImage(mask, mask_X, mask_Y, 1200, mask.height, 0, 0, canvas.width, canvas.height);
-
-	//console.log("[debug] mask successfully drawn");
-
-	cctx.globalCompositeOperation = "destination-over";
-
-	cctx.strokeStyle = 'white';
-	cctx.lineWidth = strokeWidth.value;
-	cctx.lineJoin = 'round';
+	txtctx.globalCompositeOperation = "source-in";
+	txtctx.drawImage(mask, mask_X, mask_Y, 1200, mask.height, 0, 0, bgcanvas.width, bgcanvas.height);
+	txtctx.globalCompositeOperation = "destination-over";
+	txtctx.strokeStyle = 'white';
+	txtctx.lineWidth = strokeWidth.value;
+	txtctx.lineJoin = 'round';
 	drawCanvasText(x, y, true);
-
-	cctx.shadowColor = "#d5efed";
-	cctx.shadowOffsetX = 0;
-	cctx.shadowOffsetY = shadowOffset.value;
-	cctx.shadowBlur = 0;
+	txtctx.shadowColor = "#d5efed";
+	txtctx.shadowOffsetX = 0;
+	txtctx.shadowOffsetY = shadowOffset.value;
+	txtctx.shadowBlur = 0;
 	drawCanvasText(x, y, true);
-	//console.log("[debug] text successfully drawn.");
-	cctx.restore();
+	txtctx.restore();
 }
 
 
 function getRandomImage(array, path) {
-	var index = Math.floor(Math.random() * array.length);
-	var temp = array[index];
-	//console.log("path: " + path + temp_ + "\npath specified: " + path);
-	return path + temp;
+	return path + array[Math.floor(Math.random() * array.length)];
 }
 
 function updateCanvas(caller) {
 	if(caller == "input") {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	cctx.clearRect(0, 0, canvas.width, canvas.height);
-	ccctx.clearRect(0, 0, canvas.width, canvas.height);
+		bgctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
+		txtctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
+		credctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
 	}
 	var backgroundImage = new Image();
 	mask = new Image();
@@ -319,13 +264,15 @@ function updateCanvas(caller) {
 		backgroundImage.src = temp_background = userBackground.src;
 	}
 	if(useRandMask.checked) {
-		if(caller == "button") mask.src = temp_mask = getRandomImage(maskArray, "assets/overlays/");
-	else mask.src = temp_mask;
+		if(caller == "button")
+			mask.src = temp_mask = getRandomImage(maskArray, "assets/overlays/");
+		else
+			mask.src = temp_mask;
 	} else {
 		mask.src = temp_mask = userMask.src;
 	}
 	if(backgroundImage.complete) {
-		ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+		bgctx.drawImage(backgroundImage, 0, 0, bgcanvas.width, bgcanvas.height);
 		if(mask.complete) {
 			updateCanvasText();
 		} else {
@@ -334,11 +281,11 @@ function updateCanvas(caller) {
 			};
 		}
 		if(useCreditsBox.checked) drawCreditsBox();
-		ctx.drawImage(cccanvas, 0, 0);
-		ctx.drawImage(ccanvas, 0, 0);
+		bgctx.drawImage(credcanvas, 0, 0);
+		bgctx.drawImage(txtcanvas, 0, 0);
 	} else {
 		backgroundImage.onload = function() {
-		ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+		bgctx.drawImage(backgroundImage, 0, 0, bgcanvas.width, bgcanvas.height);
 		if(mask.complete) {
 			updateCanvasText();
 		} else {
@@ -347,8 +294,8 @@ function updateCanvas(caller) {
 			};
 		}
 		if(useCreditsBox.checked) drawCreditsBox();
-			ctx.drawImage(cccanvas, 0, 0);
-			ctx.drawImage(ccanvas, 0, 0);
+			bgctx.drawImage(credcanvas, 0, 0);
+			bgctx.drawImage(txtcanvas, 0, 0);
 		};
 	}
 	updateCanvasHue();
@@ -359,15 +306,14 @@ function updateCanvas(caller) {
 function updateCanvasHue() {
 	if(useRandHue.checked) {
 		var deg = Math.floor(Math.random() * 360);
-		ctx.filter = "hue-rotate(" + deg + "deg)";
-		cctx.filter = "hue-rotate(" + deg + "deg)";
-		ccctx.filter = "hue-rotate(" + deg + "deg)";
+		bgctx.filter = "hue-rotate(" + deg + "deg)";
+		txtctx.filter = "hue-rotate(" + deg + "deg)";
+		credctx.filter = "hue-rotate(" + deg + "deg)";
 	} else {
 		var deg = hueDeg.value;
-		if(hueDeg.value == null || hueDeg.value == "") deg = 0;
-		ctx.filter = "hue-rotate(" + deg + "deg)";
-		cctx.filter = "hue-rotate(" + deg + "deg)";
-		ccctx.filter = "hue-rotate(" + deg + "deg)";
+		bgctx.filter = "hue-rotate(" + deg + "deg)";
+		txtctx.filter = "hue-rotate(" + deg + "deg)";
+		credctx.filter = "hue-rotate(" + deg + "deg)";
 	}
 }
 
