@@ -34,9 +34,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <p>~STILL IN DEVELOPMENT!~</p>
                 <p id="legal">I do not own 'Steven Universe', all credit goes to its rightful owners.</p>
             </header>
-            <ul class="nav">
-                <li><a href="#" onclick="smoothScroll(document.getElementById('tutorial'))">how does this work?</a></li>
-            </ul>
             <div class="customize">
                 <p style="font-size: 15px; width: 80%; margin: auto; padding: 20px;">The Steven Universe titlecards do not always follow the exact same pattern for most details, because of this, i have added plenty of options to let you customize your elements however you like. Be sure to explore all options and experiment with your output!<br>Once you are done, you can save using Right Click->"Save as".<br>(This website has only been tested in Mozilla Firefox and Google Chrome, please use either of these browsers for more compatibility.)</p>
                 <h2>Enter your episode title:</h2>
@@ -46,18 +43,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     <p>Text Options</p>
                     Text X: <input type="number" id="input-x" width="70" onchange="updateCanvas('input')" value="540" /><br>
                     Text Y: <input type="number" id="input-y" width="70" onchange="updateCanvas('input')" value="300" /><br>
-                    <div id="mask-pos">
-                        Mask X: <input type="number" id="mask-x" width="70" onchange="updateCanvas('input')" value="100" /><br>
-                        Mask Y: <input type="number" id="mask-y" width="70" onchange="updateCanvas('input')" value="100" /><br>
+                    <div id="mask-pos" style="display: none;">
+                        Mask X: <input type="number" id="mask-x" width="70" onchange="updateCanvas('input')" value="100"/><br>
+                        Mask Y: <input type="number" id="mask-y" width="70" onchange="updateCanvas('input')" value="100"/><br>
                     </div>
-                    <input type="checkbox" id="auto-calc-mask-pos" onclick="toggleElement('mask-pos')"> Caclulate Mask Position Automatically<br>
+                    <input type="checkbox" id="auto-calc-mask-pos" onclick="toggleElement('mask-pos')" checked> Caclulate Mask Position Automatically<br>
 
                     <div id="fontsize1">Font Size 1: <input type="number" id="font-size-1" width="70" onchange="updateCanvas('input')" value="70" />px</div>
                     <div id="fontsize2">Font Size 2: <input type="number" id="font-size-2" width="70" onchange="updateCanvas('input')" value="70" />px</div>
                     <div id="fontsize3">Font Size 3: <input type="number" id="font-size-3" width="70" onchange="updateCanvas('input')" value="70" />px</div>
 
                     Line Spacing: <input type="number" id="line-spacing" width="70" onchange="updateCanvas('input')" value="15" />px<br>
-                    Stroke Width: <input type="number" id="stroke-width" width="70" onchange="updateCanvas('input')" value="15" />px<br>
+                    Stroke Width: <input type="number" id="stroke-width" width="70" onchange="updateCanvas('input')" value="10" />px<br>
                     Shadow Offset (X): <input type="number" id="shadow-offset" width="70" onchange="updateCanvas('input')" value="7" />px<br>
                 </div>
                 <br>
@@ -76,8 +73,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <br>
                 <div id="options">
                     <p>Credits Box Options</p>
-                    <input type="checkbox" id="use-credits-box"> Use Credits Box<br>
-                    <div id="credits-box-container">
+                    <input type="checkbox" id="use-credits-box" onclick="toggleElement('credits-box-container')"> Use Credits Box<br>
+                    <div id="credits-box-container" style="display: none;">
                         <input type="checkbox" id="use-double-credits-box"> Use Double Credits Box<br>
                         Credits X: <input id="credits-x" type="number" width="70" onchange="updateCanvas('input')" value="600" /><br>
                         Credits Y: <input id="credits-y" type="number" width="70" onchange="updateCanvas('input')" value="400" /><br>
@@ -91,71 +88,77 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <div id="choose">
                     <!--http://stackoverflow.com/questions/9508029/dropdown-select-with-images-->
                     <div class="image-dropdown" id="background">
-                        Pick a background:
+                        Pick a Background
                         <br>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/1.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/1.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/2.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/2.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/3.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/3.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/4.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/4.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/5.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/5.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/6.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/6.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/7.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/7.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/8.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/8.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/9.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/9.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/10.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/10.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/11.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/11.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/12.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/12.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/13.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/13.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/14.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/14.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/15.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/15.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/16.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/16.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/17.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/17.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/18.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/18.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/19.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/19.png" />
                         </div>
                         <div class="img_holder" onclick="selectUserImage(this, 'background');">
-                            <img class="flagimgs" src="assets/titlecards/20.png" />
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/20.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserImage(this, 'background');">
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/21.png" />
+                        </div>
+                        <div class="img_holder" onclick="selectUserImage(this, 'background');">
+                            <img class="flagimgs" src="assets/titlecard_thumbnails/22.png" />
                         </div>
                     </div>
                     <div class="image-dropdown" id="overlay">
-                        Pick a text mask:
+                        Pick a Text Mask
                         <br>
                         <div class="img_holder" onclick="selectUserImage(this, 'overlay');">
                             <img class="flagimgs" src="assets/overlays/1.png" />

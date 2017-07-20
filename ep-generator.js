@@ -318,7 +318,7 @@ function initArrays() {
 	for (var i = 1; i <= maskArray.length; i++) {
 		maskArray[i-1] = i + '.png';
 	}
-	bgArray = new Array(20);
+	bgArray = new Array(22);
 	for (var i = 1; i <= bgArray.length; i++) {
 		bgArray[i-1] = i + '.png';
 	}
