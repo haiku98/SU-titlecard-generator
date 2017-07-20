@@ -335,10 +335,28 @@ function init() {
 	initArrays();
 	window.onload = function() {
 		//hideFontsizeInputs();
-		var count = 0;
+		tempcount = 0;
+		maxlines = 3;
 		inputText.onkeyup = function(evt) {
-			evt = evt || window.event;
-			if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
+			//evt = evt || window.event;
+			linebreaks = (inputText.value.match(/\n/g)||[]).length;
+			if(linebreaks > 0 && linebreaks < maxlines) {
+				if(linebreaks === maxlines - 1) {
+					document.getElementById("fontsize2").style.display = "block";
+					document.getElementById("fontsize3").style.display = "block";
+				} else if(linebreaks > tempcount) {
+					document.getElementById("fontsize" + (linebreaks + 1)).style.display = "block";
+				} else if(linebreaks < tempcount) {
+					document.getElementById("fontsize" + (tempcount + 1)).style.display = "none";
+				}
+			} else if(linebreaks === 0 && linebreaks < tempcount) {
+				document.getElementById("fontsize2").style.display = "none";
+				document.getElementById("fontsize3").style.display = "none";
+			}
+			tempcount = linebreaks;
+			console.log(tempcount);
+			console.log(linebreaks);
+			/*if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
 				var temp_count = count + 1;
 				if(temp_count < 4)
 				document.getElementById("fontsize" + temp_count).style.display = "block";
@@ -349,7 +367,7 @@ function init() {
 					return;
 				}
 				count++;
-			}
+			}*/
 		};
 	};
 	submitButton = document.getElementById('submit-button');
