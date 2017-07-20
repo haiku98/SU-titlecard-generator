@@ -159,16 +159,37 @@ function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
 	cotx.restore();
 }
 
+var temp_first_b = true;
+var temp_first_m = true;
+var currentImg_b;
+var currentImg_m;
+
+function _selectUserImage(image, type) {
+	userImage = image.childNodes[1];
+	if(temp_first_b == true) {
+		userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
+		temp_first_b = false;
+	} else {
+		currentImg_b.style.boxShadow = "none";
+	}
+	userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
+	(type === "bg") ? currentImg_b = temp_background = userImage : currentImg_m = temp_mask = userImage;
+	(type === "bg") ? userBackground.src = userImage.src : userMask.src = userImage.src;
+}
+
 function selectUserImage(image, type) {
 	var userImage = image.childNodes[1];
 	var path = userImage.src;
 	var filename = path.substr(path.length - 4);
 	var index = filename.charAt(0);
 	var array = [];
-	if(type === "background")
+	if(type === "background") {
 		array = bgArray;
-	else if(type === "overlay")
+		userBackground.src = userImage.src;
+	} else if(type === "overlay") {
 		array = maskArray;
+		userMask.src = userImage.src;
+	}
 	path = "assets/" + type + "s/";
 	var images = [];
 	for (var i = 0; i < array.length; i++) {
