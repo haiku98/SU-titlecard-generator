@@ -10,6 +10,39 @@
     font-style: normal;
 }
 
+.frame {
+     background-color: transparent;
+     background-image: url(sprite-ezgifb47f123b592c3ff9062d63cf435dc5b6.jpg);
+     background-repeat: no-repeat;
+ }
+
+.frame-0 { background-position: 0 0; }
+.frame-1 { background-position: -1200px 0; }
+.frame-2 { background-position: -1800px 0; }
+.frame-3 { background-position: -2400px 0; }
+.frame-4 { background-position: -3000px 0; }
+.frame-5 { background-position: -3600px 0; }
+.frame-6 { background-position: -4200px 0; }
+.frame-7 { background-position: -4800px 0; }
+.frame-8 { background-position: -5400px 0; }
+.frame-9 { background-position: -6000px 0; }
+.frame-10 { background-position: -6600px 0; }
+.frame-11 { background-position: -7200px 0; }
+.frame-12 { background-position: -7800px 0; }
+.frame-13 { background-position: -8400px 0; }
+.frame-14 { background-position: -9000px 0; }
+.frame-15 { background-position: -9600px 0; }
+.frame-16 { background-position: -10200px 0; }
+.frame-17 { background-position: -10800px 0; }
+.frame-18 { background-position: -11400px 0; }
+.frame-19 { background-position: -12000px 0; }
+.frame-20 { background-position: -12600px 0; }
+.frame-21 { background-position: -13200px 0; }
+.frame-22 { background-position: -13800px 0; }
+.frame-23 { background-position: -14400px 0; }
+.frame-24 { background-position: -15000px 0; }
+.frame-25 { background-position: -15600px 0; }
+
 * {
     margin: 0;
     padding: 0;

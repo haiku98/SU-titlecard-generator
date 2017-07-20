@@ -12,6 +12,7 @@ var inputX = document.getElementById("input-x");
 var inputY = document.getElementById("input-y");
 var maskX = document.getElementById("mask-x");
 var maskY = document.getElementById("mask-y");
+var calcMaskY = document.getElementById("auto-calc-mask-y");
 var fontSize1 = document.getElementById("font-size-1");
 var fontSize2 = document.getElementById("font-size-2");
 var fontSize3 = document.getElementById("font-size-3");
@@ -36,7 +37,7 @@ var submitButton = document.getElementById('submit-button');
 var userBackground = document.createElement("img");
 var userMask = document.createElement("img");
 
-var maskArray, bgArray, temp_mask, temp_background, mask;
+var maskArray, bgArray, mask;
 
 function drawCreditsText() {
 	if(!useCreditsBox.checked) return;
@@ -44,7 +45,7 @@ function drawCreditsText() {
 	var colors2 = ["#6483a4", "#8f8bc6", "#ed6d8b", "#f4955d", "#e686b9", "#598392", "#f591c1", "#0a6e99", "#d22eac", "#98a1ba", "#ba9fd6", "#d6a2da", "#ed6d8a", "#7f6977"];
 	var overlaysCount = 14; // TODO: make this automatic
 	for (var i = 0; i < overlaysCount; i++) {
-		if(temp_mask.includes("overlays/" + (i + 1) + ".png")) {
+		if(mask.src.includes("overlays/" + (i + 1) + ".png")) {
 			color1 = colors1[i];
 			color2 = colors2[i];
 		}
@@ -59,10 +60,15 @@ function formatCreditsText(x, y, color1, color2) {
 	var font2 = "7pt crewniverse_font";
 	var text = creditsText.value;
 	var lines = creditsText.value.split("\n");
+	if(swapCreditsTextColors.checked) {
+		let temp = color1;
+		color1 = color2;
+		color2 = temp;
+	}
 	for (var i = 0; i < lines.length; i++) {
 		if(i == 0) {
 			credctx.font = font2;
-			(swapCreditsTextColors.checked) ? credctx.fillStyle = color1 : credctx.fillStyle = color2;
+			credctx.fillStyle = color2;
 			credctx.fillText(lines[0], x, y);
 			y += parseInt(credctx.font) + 20;
 		} else {
@@ -74,10 +80,10 @@ function formatCreditsText(x, y, color1, color2) {
 			for(var ii = 0; ii <= line.length; ++ii) {
 				var ch = line.charAt(ii);
 				if(and == false) {
-					(swapCreditsTextColors.checked) ? credctx.fillStyle = color2 : credctx.fillStyle = color1;
+					credctx.fillStyle = color1;
 					credctx.font = font1;
 				} else {
-					(swapCreditsTextColors.checked) ? credctx.fillStyle = color1 : credctx.fillStyle = color2;
+					credctx.fillStyle = color2;
 					credctx.font = font2;
 				}
 				if(line[ii+1] == "a" && line[ii+2] == "n" && line[ii+3] == "d" && line[ii+4] == " ")
@@ -197,6 +203,7 @@ function drawCanvasText(x, y, doStroke) {
 	//ctx.save();
 	//ctx.translate(posX, posY);
 	txtctx.fillStyle = "black";
+	txtctx.textBaseline = "top";
 	for (i = 0; i < lines.length; i++) {
 		switch(i) {
 			case 0:
@@ -206,7 +213,6 @@ function drawCanvasText(x, y, doStroke) {
 				var lineHeight = parseInt(fontSize2.value);
 				txtctx.font = fontSize2.value + "pt crewniverse_font";
 				y = (parseInt(y) + lineHeight) + padding;
-				//console.log("padding: " + padding + "\nlineheight: " + lineheight + "\nfontsize2: " + fontSize2.value);
 				break;
 			case 2:
 				var lineHeight = parseInt(fontSize3.value);
@@ -248,15 +254,13 @@ function getRandomImage(array, path) {
 }
 
 function updateCanvas(caller) {
-	if(caller == "input") {
-		bgctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
-		txtctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
-		credctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
-	}
+	bgctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
+	txtctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
+	credctx.clearRect(0, 0, bgcanvas.width, bgcanvas.height);
 	var backgroundImage = new Image();
 	mask = new Image();
-	mask.src = userMask.src;
-	backgroundImage.src = userBackground.src;
+	mask.src = (userMask.src == "") ? getRandomImage(maskArray, "assets/overlays/") : userMask.src;
+	backgroundImage.src = (userBackground.src == "") ? getRandomImage(bgArray, 'assets/titlecards/') : userBackground.src;
 	if(useRandBg.checked && caller === "button") {
 		backgroundImage.src = getRandomImage(bgArray, 'assets/titlecards/');
 	}
