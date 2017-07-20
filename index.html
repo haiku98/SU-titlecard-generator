@@ -13,8 +13,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-102900555-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
         <meta charset="utf-8">
-        <title>SU Fake Episode Generator</title>
+        <title>SU Titlecard Generator</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -29,7 +39,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             </ul>
             <div class="customize">
                 <p style="font-size: 15px; width: 80%; margin: auto; padding: 20px;">The Steven Universe titlecards do not always follow the exact same pattern for most details, because of this, i have added plenty of options to let you customize your elements however you like. Be sure to explore all options and experiment with your output!<br>Once you are done, you can save using Right Click->"Save as".<br>(This website has only been tested in Mozilla Firefox and Google Chrome, please use either of these browsers for more compatibility.)</p>
-
                 <h2>Enter your episode title:</h2>
                     <textarea id="input-text" rows="5" cols="25" onchange="updateCanvas('input')"></textarea><br>
                 <h2>Options:</h2>
@@ -45,7 +54,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     <div id="fontsize3">Font Size 3: <input type="number" id="font-size-3" width="70" onchange="updateCanvas('input')" value="70" />px</div>
 
                     Line Spacing: <input type="number" id="line-spacing" width="70" onchange="updateCanvas('input')" value="30" />px<br>
-
                     Stroke Width: <input type="number" id="stroke-width" width="70" onchange="updateCanvas('input')" value="15" />px<br>
                     Shadow Offset (X): <input type="number" id="shadow-offset" width="70" onchange="updateCanvas('input')" value="7" />px<br>
                 </div>

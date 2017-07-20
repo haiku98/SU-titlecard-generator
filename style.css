@@ -5,7 +5,7 @@
     src: local(crewniverse_font),
          url('crewniverse/crewniverse_font.ttf') format('opentype');*/
     font-family: crewniverse_font;
-    src: url('crewniverse/crewniverse_font.ttf') format('truetype');
+    src: url('assets/crewniverse/crewniverse_font.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

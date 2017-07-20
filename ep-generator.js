@@ -41,11 +41,7 @@ var maskArray, bgArray, temp_mask, temp_background, mask;
 function drawCreditsText() {
 	if(!useCreditsBox.checked)
 		return;
-
 	var color1, color2;
-
-	console.log(temp_mask);
-
 	if(temp_mask.includes("overlays/1.png")) {
 		color1 = "#f485a1";
 		color2 = "#6483a4";
@@ -89,16 +85,14 @@ function drawCreditsText() {
 		color1 = "#f26d77";
 		color2 = "#7f6977";
 	}
-
 	var x = parseInt(creditsX.value) + 25;
 	var y = parseInt(creditsY.value) + 25;
 	formatCreditsText(x, y, color1, color2);
 }
 
 function formatCreditsText(x, y, color1, color2) {
-	var font1 = "15pt crewniverse_font"; //this has to be in pt instead of px for some reason..
+	var font1 = "15pt crewniverse_font";
 	var font2 = "7pt crewniverse_font";
-
 	var text = creditsText.value;
 	var lines = creditsText.value.split("\n");
 	for (var i = 0; i < lines.length; i++) {
@@ -113,9 +107,8 @@ function formatCreditsText(x, y, color1, color2) {
 			var and = false;
 			var line = lines[i];
 			var x2 = x + 20;
-
-		    for(var ii = 0; ii <= line.length; ++ii) {
-		        var ch = line.charAt(ii);
+		for(var ii = 0; ii <= line.length; ++ii) {
+		var ch = line.charAt(ii);
 				if(and == false) {
 					(swapCreditsTextColors.checked) ? ccctx.fillStyle = color2 : ccctx.fillStyle = color1;
 					ccctx.font = font1;
@@ -126,27 +119,24 @@ function formatCreditsText(x, y, color1, color2) {
 				if(line[ii+1] == "a" && line[ii+2] == "n" && line[ii+3] == "d" && line[ii+4] == " ")
 				// TODO: make it check for uppercase as well
 					and = true;
-
 				if(and == true)
 					temp_count++;
-
 				if(temp_count == 4) {
 					and = false;
 					temp_count = 0;
 				}
 				//console.log(ch);
 				//if(line[ii-1] == " ") x2 = x2 - 10;
-		        ccctx.fillText(ch, x2, y);
-		        x2 += ccctx.measureText(ch).width;
+		ccctx.fillText(ch, x2, y);
+		x2 += ccctx.measureText(ch).width;
 				if(ii == line.length) {
 					var lineheight = parseInt(ccctx.font);
-
 					y = (parseInt(y) + parseInt(lineheight)) + 5;
 					x = parseInt(x) + 80;
 					//console.log(x);
 					//cctx.fillText(ch, x, y);
 				}
-		    }
+		}
 		}
 	}
 	ccctx.restore();
@@ -167,18 +157,18 @@ function drawCreditsBox() {
 // http://stackoverflow.com/questions/1255512/how-to-draw-a-rounded-rectangle-on-html-canvas
 function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
   if (typeof stroke == 'undefined') {
-    stroke = true;
+	stroke = true;
   }
   if (typeof radius === 'undefined') {
-    radius = 5;
+	radius = 5;
   }
   if (typeof radius === 'number') {
-    radius = {tl: radius, tr: radius, br: radius, bl: radius};
+	radius = {tl: radius, tr: radius, br: radius, bl: radius};
   } else {
-    var defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
-    for (var side in defaultRadius) {
-      radius[side] = radius[side] || defaultRadius[side];
-    }
+	var defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
+	for (var side in defaultRadius) {
+	  radius[side] = radius[side] || defaultRadius[side];
+	}
   }
   cotx.beginPath();
   cotx.moveTo(x + radius.tl, y);
@@ -196,15 +186,14 @@ function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
   cotx.shadowColor = "#d5efed";
   cotx.closePath();
   if (fill) {
-    cotx.fill();
+	cotx.fill();
   }
   if (stroke) {
-    cotx.stroke();
+	cotx.stroke();
   }
   cotx.shadowColor = "#ffffff"; // bugfix
   cotx.restore();
 }
-
 
 /* MAIN TEXT AND BACKGROUND */
 
@@ -270,7 +259,7 @@ function drawCanvasText(x, y, doStroke) {
 			break;
 		}
 
-        if(doStroke) cctx.strokeText(lines[i], x, y);
+if(doStroke) cctx.strokeText(lines[i], x, y);
 		else cctx.fillText(lines[i], x, y);
 	}
 }
@@ -279,12 +268,12 @@ function updateCanvasText() {
 	cctx.clearRect(0, 0, ccanvas.width, ccanvas.height);
 	cctx.save();
 
-    var x = inputX.value;
-    var y = inputY.value;
-    var mask_X = maskX.value;
-    var mask_Y = maskY.value;
+	var x = inputX.value;
+	var y = inputY.value;
+	var mask_X = maskX.value;
+	var mask_Y = maskY.value;
 
-    //ctx.beginPath();
+	//ctx.beginPath();
 
 	//console.log("- image src: " + mask.src);
 
@@ -295,17 +284,17 @@ function updateCanvasText() {
 
 	//console.log("[debug] mask successfully drawn");
 
-    cctx.globalCompositeOperation = "destination-over";
+	cctx.globalCompositeOperation = "destination-over";
 
-    cctx.strokeStyle = 'white';
-    cctx.lineWidth = strokeWidth.value;
-    cctx.lineJoin = 'round';
+	cctx.strokeStyle = 'white';
+	cctx.lineWidth = strokeWidth.value;
+	cctx.lineJoin = 'round';
 	drawCanvasText(x, y, true);
 
-    cctx.shadowColor = "#d5efed";
-    cctx.shadowOffsetX = 0;
-    cctx.shadowOffsetY = shadowOffset.value;
-    cctx.shadowBlur = 0;
+	cctx.shadowColor = "#d5efed";
+	cctx.shadowOffsetX = 0;
+	cctx.shadowOffsetY = shadowOffset.value;
+	cctx.shadowBlur = 0;
 	drawCanvasText(x, y, true);
 	//console.log("[debug] text successfully drawn.");
 	cctx.restore();
@@ -313,10 +302,10 @@ function updateCanvasText() {
 
 
 function getRandomImage(array, path) {
-    var index = Math.floor(Math.random() * array.length);
-    var temp = array[index];
-	//console.log("path: " + path + temp_ + "\npath specified: " + path);
-    return path + temp;
+	var index = Math.floor(Math.random() * array.length);
+	var temp = array[index];
+		//console.log("path: " + path + temp_ + "\npath specified: " + path);
+	return path + temp;
 }
 
 function updateCanvas(caller) {
@@ -329,28 +318,20 @@ function updateCanvas(caller) {
 	mask = new Image();
 
 	if(useRandBg.checked) {
-		if(caller == "button") backgroundImage.src = temp_background = getRandomImage(bgArray, 'assets/titlecards/');
-		else backgroundImage.src = temp_background;
+		if(caller == "button")
+			backgroundImage.src = temp_background = getRandomImage(bgArray, 'assets/titlecards/');
+		else
+			backgroundImage.src = temp_background;
 	} else {
 		backgroundImage.src = temp_background = userBackground.src;
 	}
-
 	if(useRandMask.checked) {
 		if(caller == "button") mask.src = temp_mask = getRandomImage(maskArray, "assets/overlays/");
 		else mask.src = temp_mask;
 	} else {
 		mask.src = temp_mask = userMask.src;
 	}
-
 	if(backgroundImage.complete) {
-		/*
-			The reason for me doing it this weird way is because,
-			if i put the text function after the image's onload
-			function, the text would draw before the image has
-			actually loaded, resulting in the image being drawn
-			over the text.
-		*/
-
 		ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 		if(mask.complete) {
 			updateCanvasText();
@@ -384,27 +365,27 @@ function updateCanvas(caller) {
 
 function updateCanvasHue() {
 	if(useRandHue.checked) {
-        var deg = Math.floor(Math.random() * 360);
+		var deg = Math.floor(Math.random() * 360);
 		ctx.filter = "hue-rotate(" + deg + "deg)";
 		cctx.filter = "hue-rotate(" + deg + "deg)";
 		ccctx.filter = "hue-rotate(" + deg + "deg)";
-    } else {
-        var deg = hueDeg.value;
+	} else {
+		var deg = hueDeg.value;
 		if(hueDeg.value == null || hueDeg.value == "") deg = 0;
-        ctx.filter = "hue-rotate(" + deg + "deg)";
+		ctx.filter = "hue-rotate(" + deg + "deg)";
 		cctx.filter = "hue-rotate(" + deg + "deg)";
 		ccctx.filter = "hue-rotate(" + deg + "deg)";
-    }
+	}
 }
 
 function initArrays() {
-    maskArray = new Array(14);
+	maskArray = new Array(14);
 	for (var i = 0; i < maskArray.length; i++) {
 		var a = i + 1;
 		maskArray[i] = a + '.png';
 	}
 
-    bgArray = new Array(20);
+	bgArray = new Array(20);
 	for (var i = 0; i < bgArray.length; i++) {
 		var a = i + 1;
 		bgArray[i] = a + '.png';
@@ -417,28 +398,27 @@ function init() {
 	window.onload = function() {
 		//hideFontsizeInputs();
 		var count = 0;
-        inputText.onkeyup = function(evt) {
-            evt = evt || window.event;
-			if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
-				var temp_count = count + 1;
-				if(temp_count < 4)
-					document.getElementById("fontsize" + temp_count).style.display = "block";
+		inputText.onkeyup = function(evt) {
+		evt = evt || window.event;
+		if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
+			var temp_count = count + 1;
+			if(temp_count < 4)
+				document.getElementById("fontsize" + temp_count).style.display = "block";
+		}
+		if(evt.keyCode == 13) { // enter key
+			if(count == 4) {
+				count = 0;
+				return;
 			}
+			count++;
+		}
+	};
+};
 
-			if(evt.keyCode == 13) { // enter key
-				if(count == 4) {
-					count = 0;
-					return;
-				}
-				count++;
-			}
-        };
-    };
-
-    submitButton = document.getElementById('submit-button');
-    submitButton.addEventListener('click', function() {
-        updateCanvas("button");
-    });
+submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click', function() {
+		updateCanvas("button");
+	});
 }
 
 init();
@@ -450,7 +430,6 @@ function toggleElement(e) {
 	} else {
 		element.style.display = "none";
 	}
-
 	var mask = document.getElementById("overlay");
 	var background = document.getElementById("background");
 	if(overlay.style.display === "none" && background.style.display === "none") document.getElementById("choose").style.display = "none";
@@ -459,24 +438,24 @@ function toggleElement(e) {
 
 //http://stackoverflow.com/questions/18071046/smooth-scroll-to-specific-div-on-click
 window.smoothScroll = function(target) {
-    var scrollContainer = target;
-    do { //find scroll container
-        scrollContainer = scrollContainer.parentNode;
-        if (!scrollContainer) return;
-        scrollContainer.scrollTop += 1;
-    } while (scrollContainer.scrollTop == 0);
-
-    var targetY = 0;
-    do { //find the top of target relatively to the container
-        if (target == scrollContainer) break;
-        targetY += target.offsetTop;
-    } while (target = target.offsetParent);
-
-    scroll = function(c, a, b, i) {
-        i++; if (i > 30) return;
-        c.scrollTop = a + (b - a) / 30 * i;
-        setTimeout(function(){ scroll(c, a, b, i); }, 20);
-    }
-    // start scrolling
-    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+	var scrollContainer = target;
+	do { //find scroll container
+		scrollContainer = scrollContainer.parentNode;
+	if (!scrollContainer) return;
+		scrollContainer.scrollTop += 1;
+	}
+	while (scrollContainer.scrollTop == 0);
+		var targetY = 0;
+	do { //find the top of target relatively to the container
+		if (target == scrollContainer) break;
+		targetY += target.offsetTop;
+	}
+	while (target = target.offsetParent);
+		scroll = function(c, a, b, i) {
+		i++; if (i > 30) return;
+		c.scrollTop = a + (b - a) / 30 * i;
+		setTimeout(function(){ scroll(c, a, b, i); }, 20);
+	}
+	// start scrolling
+	scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
 }
