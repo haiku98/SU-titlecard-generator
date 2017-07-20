@@ -31,6 +31,8 @@ var creditsY = document.getElementById("credits-y");
 var creditsWidth = document.getElementById("credits-width");
 var swapCreditsTextColors = document.getElementById("swap-credits-text-colors");
 
+var submitButton = document.getElementById('submit-button');
+
 var userBackground = document.createElement("img");
 var userMask = document.createElement("img");
 
@@ -157,36 +159,31 @@ function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
 	cotx.restore();
 }
 
-var temp_first_b = true;
-var currentImg_b;
-
-function selectUserBackground(image) {
-	userImage = image.childNodes[1];
-	if(temp_first_b == true) {
-		userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-		temp_first_b = false;
-	} else {
-		currentImg_b.style.boxShadow = "none";
+function selectUserImage(image, type) {
+	var userImage = image.childNodes[1];
+	var path = userImage.src;
+	var filename = path.substr(path.length - 4);
+	var index = filename.charAt(0);
+	var array = [];
+	if(type === "background")
+		array = bgArray;
+	else if(type === "overlay")
+		array = maskArray;
+	path = "assets/" + type + "s/";
+	var images = [];
+	for (var i = 0; i < array.length; i++) {
+		images[i] = document.querySelectorAll('#' + type + ' div img')[i];
 	}
-	currentImg_b = temp_background = userImage;
-	userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-	userBackground.src = userImage.src;
-}
-
-var temp_first_m = true;
-var currentImg_m;
-
-function selectUserMask(image) {
-	userImage = image.childNodes[1];
-	if(temp_first_m == true) {
-		userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-		temp_first_m = false;
-	} else {
-		currentImg_m.style.boxShadow = "none";
+	// TODO: find a faster way to do this
+	for (var i = 0; i < array.length; i++) {
+		for (img of images) {
+			if(img.style.boxShadow !== "none" && img.src !== userImage.src) {
+				img.style.boxShadow = "none";
+			} else if(img.src === userImage.src) {
+				userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
+			}
+		}
 	}
-	currentImg_m = temp_mask = userImage;
-	userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-	userMask.src = userImage.src;
 }
 
 // https://gist.github.com/chriskoch/366054
@@ -319,15 +316,12 @@ function updateCanvasHue() {
 
 function initArrays() {
 	maskArray = new Array(14);
-	for (var i = 0; i < maskArray.length; i++) {
-		var a = i + 1;
-		maskArray[i] = a + '.png';
+	for (var i = 1; i <= maskArray.length; i++) {
+		maskArray[i-1] = i + '.png';
 	}
-
 	bgArray = new Array(20);
-	for (var i = 0; i < bgArray.length; i++) {
-		var a = i + 1;
-		bgArray[i] = a + '.png';
+	for (var i = 1; i <= bgArray.length; i++) {
+		bgArray[i-1] = i + '.png';
 	}
 }
 
@@ -354,8 +348,6 @@ function init() {
 				document.getElementById("fontsize3").style.display = "none";
 			}
 			tempcount = linebreaks;
-			console.log(tempcount);
-			console.log(linebreaks);
 			/*if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
 				var temp_count = count + 1;
 				if(temp_count < 4)
@@ -370,7 +362,6 @@ function init() {
 			}*/
 		};
 	};
-	submitButton = document.getElementById('submit-button');
 	submitButton.addEventListener('click', function() {
 		updateCanvas("button");
 	});
