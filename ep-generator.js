@@ -50,8 +50,9 @@ function drawCreditsText() {
 			color2 = colors2[i];
 		}
 	}
-	var x = parseInt(creditsX.value) + 25;
-	var y = parseInt(creditsY.value) + 25;
+	var padding = 25;
+	var x = parseInt(creditsX.value) + padding;
+	var y = parseInt(creditsY.value) + padding;
 	formatCreditsText(x, y, color1, color2);
 }
 
