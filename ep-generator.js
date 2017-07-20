@@ -159,24 +159,6 @@ function roundRect(cotx, x, y, width, height, radius, fill, stroke) {
 	cotx.restore();
 }
 
-var temp_first_b = true;
-var temp_first_m = true;
-var currentImg_b;
-var currentImg_m;
-
-function _selectUserImage(image, type) {
-	userImage = image.childNodes[1];
-	if(temp_first_b == true) {
-		userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-		temp_first_b = false;
-	} else {
-		currentImg_b.style.boxShadow = "none";
-	}
-	userImage.style.boxShadow = "0 0 15px 2px rgba(0, 0, 0, .5)";
-	(type === "bg") ? currentImg_b = temp_background = userImage : currentImg_m = temp_mask = userImage;
-	(type === "bg") ? userBackground.src = userImage.src : userMask.src = userImage.src;
-}
-
 function selectUserImage(image, type) {
 	var userImage = image.childNodes[1];
 	var path = userImage.src;
@@ -275,9 +257,9 @@ function updateCanvas(caller) {
 	mask = new Image();
 	if(useRandBg.checked) {
 		if(caller == "button")
-		backgroundImage.src = temp_background = getRandomImage(bgArray, 'assets/titlecards/');
+			backgroundImage.src = temp_background = getRandomImage(bgArray, 'assets/titlecards/');
 		else
-		backgroundImage.src = temp_background;
+			backgroundImage.src = temp_background;
 	} else {
 		backgroundImage.src = temp_background = userBackground.src;
 	}
@@ -369,18 +351,6 @@ function init() {
 				document.getElementById("fontsize3").style.display = "none";
 			}
 			tempcount = linebreaks;
-			/*if(evt.keyCode != 46 && evt.keyCode != 8 && evt.keyCode != 17) { // delete; backspace; ctrl
-				var temp_count = count + 1;
-				if(temp_count < 4)
-				document.getElementById("fontsize" + temp_count).style.display = "block";
-			}
-			if(evt.keyCode == 13) { // enter key
-				if(count == 4) {
-					count = 0;
-					return;
-				}
-				count++;
-			}*/
 		};
 	};
 	submitButton.addEventListener('click', function() {
