@@ -46,9 +46,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     <p>Text Options</p>
                     Text X: <input type="number" id="input-x" width="70" onchange="updateCanvas('input')" value="540" /><br>
                     Text Y: <input type="number" id="input-y" width="70" onchange="updateCanvas('input')" value="300" /><br>
-                    Mask X: <input type="number" id="mask-x" width="70" onchange="updateCanvas('input')" value="100" /><br>
-                    Mask Y: <input type="number" id="mask-y" width="70" onchange="updateCanvas('input')" value="100" /><br>
-                    <input type="checkbox" id="auto-calc-mask-y"> Caclulate Mask Y Automatically<br>
+                    <div id="mask-pos">
+                        Mask X: <input type="number" id="mask-x" width="70" onchange="updateCanvas('input')" value="100" /><br>
+                        Mask Y: <input type="number" id="mask-y" width="70" onchange="updateCanvas('input')" value="100" /><br>
+                    </div>
+                    <input type="checkbox" id="auto-calc-mask-pos" onclick="toggleElement('mask-pos')"> Caclulate Mask Position Automatically<br>
 
                     <div id="fontsize1">Font Size 1: <input type="number" id="font-size-1" width="70" onchange="updateCanvas('input')" value="70" />px</div>
                     <div id="fontsize2">Font Size 2: <input type="number" id="font-size-2" width="70" onchange="updateCanvas('input')" value="70" />px</div>

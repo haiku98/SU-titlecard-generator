@@ -12,7 +12,7 @@ var inputX = document.getElementById("input-x");
 var inputY = document.getElementById("input-y");
 var maskX = document.getElementById("mask-x");
 var maskY = document.getElementById("mask-y");
-var calcMaskY = document.getElementById("auto-calc-mask-y");
+var calcMaskPos = document.getElementById("auto-calc-mask-pos");
 var fontSize1 = document.getElementById("font-size-1");
 var fontSize2 = document.getElementById("font-size-2");
 var fontSize3 = document.getElementById("font-size-3");
@@ -217,7 +217,7 @@ function drawCanvasText(x, y, doStroke) {
 			case 2:
 				var lineHeight = parseInt(fontSize3.value);
 				txtctx.font = fontSize3.value + "pt crewniverse_font";
-				y = (parseInt(y) + lineHeight) + padding + 10;
+				y = (parseInt(y) + lineHeight) + padding;
 				break;
 		}
 		if(doStroke) txtctx.strokeText(lines[i], x, y);
@@ -228,8 +228,8 @@ function drawCanvasText(x, y, doStroke) {
 function updateCanvasText() {
 	var x = inputX.value;
 	var y = inputY.value;
-	var mask_X = maskX.value;
-	var mask_Y = maskY.value;
+	var mask_X = (calcMaskPos.checked) ? inputX.value : maskY.value;
+	var mask_Y = (calcMaskPos.checked) ? 450 - (inputY.value * 1.5) : maskY.value;
 	txtctx.clearRect(0, 0, txtcanvas.width, txtcanvas.height);
 	txtctx.save();
 	drawCanvasText(x, y, false);
@@ -363,7 +363,7 @@ function toggleElement(e) {
 	} else {
 		element.style.display = "none";
 	}
-	var mask = document.getElementById("overlay");
+	var overlay = document.getElementById("overlay");
 	var background = document.getElementById("background");
 	if(overlay.style.display === "none" && background.style.display === "none") document.getElementById("choose").style.display = "none";
 	else document.getElementById("choose").style.display = "inline-block";
