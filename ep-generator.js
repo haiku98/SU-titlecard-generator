@@ -255,21 +255,13 @@ function updateCanvas(caller) {
 	}
 	var backgroundImage = new Image();
 	mask = new Image();
-	if(useRandBg.checked) {
-		if(caller == "button")
-			backgroundImage.src = temp_background = getRandomImage(bgArray, 'assets/titlecards/');
-		else
-			backgroundImage.src = temp_background;
-	} else {
-		backgroundImage.src = temp_background = userBackground.src;
+	mask.src = userMask.src;
+	backgroundImage.src = userBackground.src;
+	if(useRandBg.checked && caller === "button") {
+		backgroundImage.src = getRandomImage(bgArray, 'assets/titlecards/');
 	}
-	if(useRandMask.checked) {
-		if(caller == "button")
-			mask.src = temp_mask = getRandomImage(maskArray, "assets/overlays/");
-		else
-			mask.src = temp_mask;
-	} else {
-		mask.src = temp_mask = userMask.src;
+	if(useRandMask.checked && caller === "button") {
+		mask.src = getRandomImage(maskArray, "assets/overlays/");
 	}
 	if(backgroundImage.complete) {
 		bgctx.drawImage(backgroundImage, 0, 0, bgcanvas.width, bgcanvas.height);
@@ -285,20 +277,20 @@ function updateCanvas(caller) {
 		bgctx.drawImage(txtcanvas, 0, 0);
 	} else {
 		backgroundImage.onload = function() {
-		bgctx.drawImage(backgroundImage, 0, 0, bgcanvas.width, bgcanvas.height);
-		if(mask.complete) {
-			updateCanvasText();
-		} else {
-			mask.onload = function() {
+			bgctx.drawImage(backgroundImage, 0, 0, bgcanvas.width, bgcanvas.height);
+			if(mask.complete) {
 				updateCanvasText();
-			};
-		}
-		if(useCreditsBox.checked) drawCreditsBox();
+			} else {
+				mask.onload = function() {
+					updateCanvasText();
+				};
+			}
+			if(useCreditsBox.checked) drawCreditsBox();
 			bgctx.drawImage(credcanvas, 0, 0);
 			bgctx.drawImage(txtcanvas, 0, 0);
 		};
 	}
-	updateCanvasHue();
+	if(caller === "button") updateCanvasHue();
 	//drawCreditsBox();
 	//drawCreditsText();
 }
@@ -332,8 +324,8 @@ function init() {
 	initArrays();
 	window.onload = function() {
 		//hideFontsizeInputs();
-		tempcount = 0;
-		maxlines = 3;
+		var tempcount = 0;
+		var maxlines = 3;
 		inputText.onkeyup = function(evt) {
 			//evt = evt || window.event;
 			linebreaks = (inputText.value.match(/\n/g)||[]).length;
